@@ -23,7 +23,11 @@ class UserBodyInfo extends React.Component {
             keyboardType="numeric"
             rightIcon={<Text>kg</Text>}
           />
-          <Input placeholder="Weight" keyboardType="numeric" />
+          <Input
+            placeholder="Weight"
+            keyboardType="numeric"
+            rightIcon={<Text>cm</Text>}
+          />
           <Text style={styles.buttonGroupLabelStyle}>Gender</Text>
           <ButtonGroup
             onPress={this.updateIndex}
