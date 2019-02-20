@@ -1,8 +1,10 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import UserBodyInfo from './userBodyInfo';
+import ActivityInfo from './activityInfo';
+import Goal from './goal';
 
 class UserInput extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -22,9 +24,13 @@ class UserInput extends React.Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <UserBodyInfo />
-      </View>
+      <ScrollView style={{ flex: 1, paddingBottom: 25 }}>
+        <View style={{ flex: 1 }}>
+          <UserBodyInfo />
+          <ActivityInfo />
+          <Goal />
+        </View>
+      </ScrollView>
     );
   }
 }
