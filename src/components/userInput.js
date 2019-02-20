@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ScrollView } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { Icon, Button } from 'react-native-elements';
 
 import UserBodyInfo from './userBodyInfo';
 import ActivityInfo from './activityInfo';
@@ -24,11 +24,21 @@ class UserInput extends React.Component {
 
   render() {
     return (
-      <ScrollView style={{ flex: 1, paddingBottom: 25 }}>
-        <View style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1 }}>
+        <View style={{ flex: 1, paddingBottom: 25 }}>
           <UserBodyInfo />
           <ActivityInfo />
           <Goal />
+        </View>
+        <View
+          style={{
+            flex: 1,
+            paddingBottom: 25,
+            paddingLeft: 15,
+            paddingRight: 15,
+          }}
+        >
+          <Button title="Calculate Macros" backgroundColor="ff5722" />
         </View>
       </ScrollView>
     );
