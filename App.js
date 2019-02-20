@@ -1,14 +1,14 @@
 import React from 'react';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-import Input from './src/components/input';
+import UserInput from './src/components/userInput';
 import Results from './src/components/results';
 import Settings from './src/components/settings';
 
 const AppNavigator = createStackNavigator(
   {
-    Home: Input,
-    Results: Results,
-    Settings: Settings,
+    Home: UserInput,
+    Results,
+    Settings,
   },
   {
     initialRouteName: 'Home',
