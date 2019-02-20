@@ -1,12 +1,10 @@
 import React from 'react';
 import { Card, CheckBox } from 'react-native-elements';
+import { connect } from 'react-redux';
+
+import { checkboxSelection } from '../actions';
 
 class Goal extends React.Component {
-  state = {
-    lose: true,
-    maintain: false,
-    gain: false,
-  };
   render() {
     return (
       <Card title="Weight Goal">
@@ -15,25 +13,43 @@ class Goal extends React.Component {
           title="Lose"
           checkedIcon="dot-circle-o"
           uncheckedIcon="circle-o"
-          checked={this.state.lose}
+          checked={this.props.goal === 'lose'}
+          onPress={() => {
+            this.props.checkboxSelection('goal', 'lose');
+          }}
         />
         <CheckBox
           center
           title="Maintain"
           checkedIcon="dot-circle-o"
           uncheckedIcon="circle-o"
-          checked={this.state.maintain}
+          checked={this.props.goal === 'maintain'}
+          onPress={() => {
+            this.props.checkboxSelection('goal', 'maintain');
+          }}
         />
         <CheckBox
           center
           title="Gain"
           checkedIcon="dot-circle-o"
           uncheckedIcon="circle-o"
-          checked={this.state.gain}
+          checked={this.props.goal === 'gain'}
+          onPress={() => {
+            this.props.checkboxSelection('goal', 'gain');
+          }}
         />
       </Card>
     );
   }
 }
 
-export default Goal;
+const mapStateToProps = state => {
+  return {
+    goal: state.macro.goal,
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { checkboxSelection }
+)(Goal);
