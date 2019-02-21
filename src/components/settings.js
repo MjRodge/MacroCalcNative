@@ -53,9 +53,9 @@ class Settings extends React.Component {
               title="Feet/Inches (ft/in)"
               checkedIcon="dot-circle-o"
               uncheckedIcon="circle-o"
-              checked={this.props.heightUnit === 'ft'}
+              checked={this.props.heightUnit === 'ft/in'}
               onPress={() => {
-                this.props.checkboxSelection('heightUnit', 'ft');
+                this.props.checkboxSelection('heightUnit', 'ft/in');
               }}
             />
           </Card>

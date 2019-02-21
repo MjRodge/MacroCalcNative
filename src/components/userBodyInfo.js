@@ -31,7 +31,7 @@ class UserBodyInfo extends React.Component {
         <Input
           placeholder="Height"
           keyboardType="numeric"
-          rightIcon={<Text>kg</Text>}
+          rightIcon={<Text>{this.props.heightUnit}</Text>}
           onChangeText={text => {
             this.props.changedText('height', text);
           }}
@@ -39,7 +39,7 @@ class UserBodyInfo extends React.Component {
         <Input
           placeholder="Weight"
           keyboardType="numeric"
-          rightIcon={<Text>cm</Text>}
+          rightIcon={<Text>{this.props.weightUnit}</Text>}
           onChangeText={text => {
             this.props.changedText('weight', text);
           }}
@@ -64,12 +64,14 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  const { gender, age, height, weight } = state.macro;
+  const { gender, age, height, weight, heightUnit, weightUnit } = state.macro;
   return {
     gender,
     age,
     height,
     weight,
+    heightUnit,
+    weightUnit,
   };
 };
 
