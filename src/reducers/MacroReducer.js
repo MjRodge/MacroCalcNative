@@ -1,12 +1,21 @@
-import { CHECKBOX_SELECTION, SLIDER_VALUE_CHANGED } from '../actions/types';
+import {
+  CHECKBOX_SELECTION,
+  SLIDER_VALUE_CHANGED,
+  GENDER_SELECTION,
+  CHANGED_TEXT,
+} from '../actions/types';
 
 const initial_state = {
   activityLevel: 'sedentary', //default value of activity radio group
   goal: 'lose', //default value of goal radio group
   heightUnit: 'cm', //default value of height unit setting radio group
   weightUnit: 'kg', //default value of weight unit setting radio group
-  fatPercentage: 20,
-  carbPercentage: 80,
+  fatPercentage: 20, //default value of fat/carb settings slider
+  carbPercentage: 80, //default value of fat/carb settings slider
+  gender: 'Male', //default gender choice
+  age: 0,
+  height: 0,
+  weight: 0,
 };
 
 export default (state = initial_state, action) => {
@@ -18,6 +27,16 @@ export default (state = initial_state, action) => {
         ...state,
         carbPercentage: action.payload,
         fatPercentage: 100 - action.payload,
+      };
+    case GENDER_SELECTION:
+      return {
+        ...state,
+        gender: action.payload,
+      };
+    case CHANGED_TEXT:
+      return {
+        ...state,
+        [action.payload.field]: action.payload.text,
       };
     default:
       return state;

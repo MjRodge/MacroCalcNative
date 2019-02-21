@@ -1,6 +1,9 @@
 import React from 'react';
 import { Text } from 'react-native';
 import { Card, Input, ButtonGroup } from 'react-native-elements';
+import { connect } from 'react-redux';
+
+import { genderSelection, changedText } from '../actions';
 
 class UserBodyInfo extends React.Component {
   state = {
@@ -8,6 +11,8 @@ class UserBodyInfo extends React.Component {
   };
 
   updateIndex = selectedIndex => {
+    const genderButtons = ['Male', 'Female'];
+    this.props.genderSelection(genderButtons[selectedIndex]);
     this.setState({ selectedIndex });
   };
 
@@ -16,16 +21,28 @@ class UserBodyInfo extends React.Component {
     const { selectedIndex } = this.state;
     return (
       <Card title="User Information">
-        <Input placeholder="Age" keyboardType="numeric" />
+        <Input
+          placeholder="Age"
+          keyboardType="numeric"
+          onChangeText={text => {
+            this.props.changedText('age', text);
+          }}
+        />
         <Input
           placeholder="Height"
           keyboardType="numeric"
           rightIcon={<Text>kg</Text>}
+          onChangeText={text => {
+            this.props.changedText('height', text);
+          }}
         />
         <Input
           placeholder="Weight"
           keyboardType="numeric"
           rightIcon={<Text>cm</Text>}
+          onChangeText={text => {
+            this.props.changedText('weight', text);
+          }}
         />
         <Text style={styles.buttonGroupLabelStyle}>Gender</Text>
         <ButtonGroup
@@ -46,4 +63,17 @@ const styles = {
   },
 };
 
-export default UserBodyInfo;
+const mapStateToProps = state => {
+  const { gender, age, height, weight } = state.macro;
+  return {
+    gender,
+    age,
+    height,
+    weight,
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { genderSelection, changedText }
+)(UserBodyInfo);
