@@ -3,20 +3,13 @@ import { View, Text, ScrollView } from 'react-native';
 import { Card, CheckBox, Slider } from 'react-native-elements';
 import { connect } from 'react-redux';
 
-import { checkboxSelection } from '../actions';
+import { checkboxSelection, sliderValueChanged } from '../actions';
 
 class Settings extends React.Component {
   static navigationOptions = {
     title: 'Settings',
   };
 
-  state = {
-    lbChecked: true,
-    kgChecked: false,
-    ftChecked: true,
-    cmChecked: false,
-    value: 80,
-  };
   render() {
     const { cardStyle } = styles;
     return (
@@ -68,14 +61,14 @@ class Settings extends React.Component {
           </Card>
           <Card title="Fat/Carb Split" style={cardStyle}>
             <Slider
-              value={this.state.value}
-              onValueChange={value => this.setState({ value })}
+              value={this.props.carbPercentage}
+              onValueChange={value => this.props.sliderValueChanged(value)}
               maximumValue={100}
               step={1}
               onSlidingComplete={() => {}}
             />
-            <Text>Carbohydrate percentage: {this.state.value}%</Text>
-            <Text>Fat percentage: {100 - this.state.value}%</Text>
+            <Text>Carbohydrate percentage: {this.props.carbPercentage}%</Text>
+            <Text>Fat percentage: {this.props.fatPercentage}%</Text>
           </Card>
         </View>
       </ScrollView>
@@ -89,13 +82,16 @@ const styles = {
 };
 
 const mapStateToProps = state => {
+  const { weightUnit, heightUnit, fatPercentage, carbPercentage } = state.macro;
   return {
-    weightUnit: state.macro.weightUnit,
-    heightUnit: state.macro.heightUnit,
+    weightUnit,
+    heightUnit,
+    fatPercentage,
+    carbPercentage,
   };
 };
 
 export default connect(
   mapStateToProps,
-  { checkboxSelection }
+  { checkboxSelection, sliderValueChanged }
 )(Settings);
