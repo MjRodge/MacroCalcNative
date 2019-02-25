@@ -3,6 +3,7 @@ import {
   SLIDER_VALUE_CHANGED,
   GENDER_SELECTION,
   CHANGED_TEXT,
+  STORE_CALCULATED_MACROS,
 } from './types';
 
 export const checkboxSelection = (group, title) => {
@@ -30,5 +31,34 @@ export const changedText = (field, text) => {
   return {
     type: CHANGED_TEXT,
     payload: { field, text },
+  };
+};
+
+export const storeCalculatedMacros = (
+  restingCalories,
+  totalCalories,
+  goalCalories,
+  totalProtein,
+  totalFat,
+  totalCarbs
+) => {
+  console.log({
+    restingCalories,
+    totalCalories,
+    goalCalories,
+    totalProtein,
+    totalFat,
+    totalCarbs,
+  });
+  return {
+    type: STORE_CALCULATED_MACROS,
+    payload: {
+      restingCalories,
+      totalCalories,
+      goalCalories,
+      totalProtein,
+      totalFat,
+      totalCarbs,
+    },
   };
 };
