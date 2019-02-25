@@ -6,16 +6,16 @@ import {
 } from '../actions/types';
 
 const initial_state = {
-  activityLevel: 'sedentary', //default value of activity radio group
-  goal: 'lose', //default value of goal radio group
+  activityLevel: 'light', //default value of activity radio group
+  goal: 'maintain', //default value of goal radio group
   heightUnit: 'cm', //default value of height unit setting radio group
   weightUnit: 'kg', //default value of weight unit setting radio group
   fatPercentage: 20, //default value of fat/carb settings slider
   carbPercentage: 80, //default value of fat/carb settings slider
   gender: 'Male', //default gender choice
-  age: 0,
-  height: 0,
-  weight: 0,
+  age: 27,
+  height: 180,
+  weight: 72,
 };
 
 export default (state = initial_state, action) => {
