@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text } from 'react-native';
 import { Card, Input, ButtonGroup } from 'react-native-elements';
-import TextInputMask from 'react-native-text-input-mask';
 import { connect } from 'react-redux';
 
 import { genderSelection, changedText } from '../actions';
@@ -31,6 +30,7 @@ class UserBodyInfo extends React.Component {
           ref="age"
           keyboardType="number-pad"
           value={this.props.age.toString()}
+          maxLength={2}
           errorMessage={this.state.ageError ? this.state.errorText : null}
           onFocus={() => {
             this.refs.age.clear();
@@ -50,6 +50,7 @@ class UserBodyInfo extends React.Component {
           ref="height"
           keyboardType="number-pad"
           value={this.props.height.toString()}
+          maxLength={3}
           rightIcon={<Text>{this.props.heightUnit}</Text>}
           errorMessage={this.state.heightError ? this.state.errorText : null}
           onFocus={() => {
@@ -70,6 +71,7 @@ class UserBodyInfo extends React.Component {
           ref="weight"
           keyboardType="number-pad"
           value={this.props.weight.toString()}
+          maxLength={3}
           rightIcon={<Text>{this.props.weightUnit}</Text>}
           errorMessage={this.state.weightError ? this.state.errorText : null}
           onFocus={() => {
@@ -90,13 +92,6 @@ class UserBodyInfo extends React.Component {
           onPress={this.updateIndex}
           selectedIndex={selectedIndex}
           buttons={genderButtons}
-        />
-        <TextInputMask
-          onChangeText={(formatted, extracted) => {
-            console.log(formatted); // +1 (123) 456-78-90
-            console.log(extracted); // 1234567890
-          }}
-          mask={"[0]'[00]"}
         />
       </Card>
     );
