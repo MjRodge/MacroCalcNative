@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text } from 'react-native';
 import { Card, Input, ButtonGroup } from 'react-native-elements';
+import TextInputMask from 'react-native-text-input-mask';
 import { connect } from 'react-redux';
 
 import { genderSelection, changedText } from '../actions';
@@ -8,6 +9,10 @@ import { genderSelection, changedText } from '../actions';
 class UserBodyInfo extends React.Component {
   state = {
     selectedIndex: 0,
+    heightError: false,
+    ageError: false,
+    weightError: false,
+    errorText: 'Only whole numbers allowed',
   };
 
   updateIndex = selectedIndex => {
@@ -22,24 +27,60 @@ class UserBodyInfo extends React.Component {
     return (
       <Card title="User Information">
         <Input
-          placeholder="Age"
-          keyboardType="numeric"
+          label="Age"
+          ref="age"
+          keyboardType="number-pad"
+          value={this.props.age.toString()}
+          errorMessage={this.state.ageError ? this.state.errorText : null}
+          onFocus={() => {
+            this.refs.age.clear();
+            this.setState({ ageError: false });
+          }}
+          onEndEditing={e => {
+            if (!/^\d+$/.test(e.nativeEvent.text)) {
+              this.setState({ ageError: true });
+            }
+          }}
           onChangeText={text => {
             this.props.changedText('age', text);
           }}
         />
         <Input
-          placeholder="Height"
-          keyboardType="numeric"
+          label="Height"
+          ref="height"
+          keyboardType="number-pad"
+          value={this.props.height.toString()}
           rightIcon={<Text>{this.props.heightUnit}</Text>}
+          errorMessage={this.state.heightError ? this.state.errorText : null}
+          onFocus={() => {
+            this.refs.height.clear();
+            this.setState({ heightError: false });
+          }}
+          onEndEditing={e => {
+            if (!/^\d+$/.test(e.nativeEvent.text)) {
+              this.setState({ heightError: true });
+            }
+          }}
           onChangeText={text => {
             this.props.changedText('height', text);
           }}
         />
         <Input
-          placeholder="Weight"
-          keyboardType="numeric"
+          label="Weight"
+          ref="weight"
+          keyboardType="number-pad"
+          value={this.props.weight.toString()}
           rightIcon={<Text>{this.props.weightUnit}</Text>}
+          errorMessage={this.state.weightError ? this.state.errorText : null}
+          onFocus={() => {
+            this.refs.weight.clear();
+            this.setState({ weightError: false });
+          }}
+          onEndEditing={e => {
+            if (!/^\d+$/.test(e.nativeEvent.text)) {
+              this.setState({ weightError: true });
+            }
+          }}
           onChangeText={text => {
             this.props.changedText('weight', text);
           }}
@@ -49,6 +90,13 @@ class UserBodyInfo extends React.Component {
           onPress={this.updateIndex}
           selectedIndex={selectedIndex}
           buttons={genderButtons}
+        />
+        <TextInputMask
+          onChangeText={(formatted, extracted) => {
+            console.log(formatted); // +1 (123) 456-78-90
+            console.log(extracted); // 1234567890
+          }}
+          mask={"[0]'[00]"}
         />
       </Card>
     );
