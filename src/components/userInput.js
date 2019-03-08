@@ -26,7 +26,7 @@ class UserInput extends React.Component {
     };
   };
   state = {
-    //hold values at component level for calculations before seding to redux
+    //hold values at component level for calculations before sending to redux
     restingCalories: 0,
     totalCalories: 0,
     goalCalories: 0,
