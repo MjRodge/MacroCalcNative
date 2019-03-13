@@ -1,17 +1,18 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import { PersistGate } from 'redux-persist/lib/integration/react';
+import { persistor, reduxStore } from './src/store';
 
-import reducers from './src/reducers';
 import MainStackNavigator from './src/navigation/AppNavigator';
 
 
 export default class App extends React.Component {
   render() {
-    const reduxStore = createStore(reducers, applyMiddleware());
     return (
       <Provider store={reduxStore}>
-        <MainStackNavigator />
+        <PersistGate loading={null} persistor={persistor}>
+          <MainStackNavigator />
+        </PersistGate>
       </Provider>
     );
   }
