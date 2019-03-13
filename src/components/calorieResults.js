@@ -35,7 +35,7 @@ class CalorieResults extends React.Component {
           <View>
             {chartColors.map((color, index) => {
               return (
-              <ChartLegend color={color} data={calorieData[index]} text={chartLabels[index]} />
+              <ChartLegend color={color} data={calorieData[index]} text={chartLabels[index]} key={`bar-legend-${index}`} />
               );
             })}
           </View>

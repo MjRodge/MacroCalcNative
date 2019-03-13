@@ -33,7 +33,7 @@ class MacroResults extends React.Component {
           <View>
             {chartColors.map((color, index) => {
               return (
-              <ChartLegend color={color} data={`${macroData[index]}g`} text={chartLabels[index]} />
+              <ChartLegend color={color} data={`${macroData[index]}g`} text={chartLabels[index]} key={`pie-legend-${index}`} />
               );
             })}
           </View>
