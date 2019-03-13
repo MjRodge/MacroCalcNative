@@ -1,19 +1,20 @@
 import React from 'react';
 import { View, ScrollView } from 'react-native';
-import { Icon, Button } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import { connect } from 'react-redux';
 
 import { storeCalculatedMacros } from '../actions';
 
-import UserBodyInfo from './userBodyInfo';
-import ActivityInfo from './activityInfo';
-import Goal from './goal';
+import UserBodyInfo from '../components/userBodyInfo';
+import ActivityInfo from '../components/activityInfo';
+import Goal from '../components/goal';
 
 class UserInput extends React.Component {
-  static navigationOptions = ({ navigation }) => {
+  static navigationOptions = () => {
     return {
       title: 'Macronutrient Calculator',
       //removed settings screen until input mask for ft/in is built
+      //dont forget to pass navigation to navigationOptions() when uncommenting
       /*headerRight: (
         <Icon
           containerStyle={{ paddingRight: 20 }}

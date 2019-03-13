@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
-import MacroResults from './macroResults';
-import CalorieResults from './calorieResults';
+import MacroResults from '../components/macroResults';
+import CalorieResults from '../components/calorieResults';
 
 class Results extends React.Component {
   static navigationOptions = {
@@ -9,7 +9,7 @@ class Results extends React.Component {
   };
   render() {
     return (
-      <ScrollView style={{ flex: 1, paddingBottom: 15 }}>
+      <ScrollView style={{ flex: 1, marginBottom: 15 }}>
         <MacroResults />
         <CalorieResults />
       </ScrollView>
