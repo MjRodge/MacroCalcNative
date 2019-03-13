@@ -30,12 +30,21 @@ class CalorieResults extends React.Component {
       <View style={{ flex: 1 }}>
         <Card title="Calorie Goals">
           <View style={styles.chartView}>
-            <BarChart style={{ height: 225, width: 225 }} data={barData} yMin={500} yAccessor={({ item }) => item.value} />
+            <BarChart 
+              style={{ height: 225, width: 225 }} 
+              data={barData} yMin={500} 
+              yAccessor={({ item }) => item.value} 
+            />
           </View>
           <View>
             {chartColors.map((color, index) => {
               return (
-              <ChartLegend color={color} data={calorieData[index]} text={chartLabels[index]} key={`bar-legend-${index}`} />
+              <ChartLegend 
+                color={color} 
+                data={calorieData[index]} 
+                text={chartLabels[index]} 
+                key={`bar-legend-${index}`} 
+              />
               );
             })}
           </View>
