@@ -4,50 +4,28 @@ import { connect } from 'react-redux';
 
 import { checkboxSelection } from '../actions';
 
+import { capitaliseFirstLetter } from '../helpers';
+
 class ActivityInfo extends React.Component {
   render() {
+    const activityCheckboxes = ['sedentary', 'light', 'moderate', 'heavy'];
     return (
       <Card title="Activity Level">
-        <CheckBox
-          center
-          title="Sedentary"
-          checkedIcon="dot-circle-o"
-          uncheckedIcon="circle-o"
-          checked={this.props.activityLevel === 'sedentary'}
-          onPress={() => {
-            this.props.checkboxSelection('activityLevel', 'sedentary');
-          }}
-        />
-        <CheckBox
-          center
-          title="Light"
-          checkedIcon="dot-circle-o"
-          uncheckedIcon="circle-o"
-          checked={this.props.activityLevel === 'light'}
-          onPress={() => {
-            this.props.checkboxSelection('activityLevel', 'light');
-          }}
-        />
-        <CheckBox
-          center
-          title="Moderate"
-          checkedIcon="dot-circle-o"
-          uncheckedIcon="circle-o"
-          checked={this.props.activityLevel === 'moderate'}
-          onPress={() => {
-            this.props.checkboxSelection('activityLevel', 'moderate');
-          }}
-        />
-        <CheckBox
-          center
-          title="Heavy"
-          checkedIcon="dot-circle-o"
-          uncheckedIcon="circle-o"
-          checked={this.props.activityLevel === 'heavy'}
-          onPress={() => {
-            this.props.checkboxSelection('activityLevel', 'heavy');
-          }}
-        />
+        {activityCheckboxes.map(title => {
+          return (
+            <CheckBox
+              center
+              title={capitaliseFirstLetter(title)}
+              checkedIcon="dot-circle-o"
+              uncheckedIcon="circle-o"
+              checked={this.props.activityLevel === title}
+              onPress={() => {
+                this.props.checkboxSelection('activityLevel', title);
+              }}
+              key={`activityLevel-${title}`}
+            />
+          );
+        })}
       </Card>
     );
   }
@@ -55,11 +33,13 @@ class ActivityInfo extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    activityLevel: state.macro.activityLevel,
+    activityLevel: state.macro.activityLevel
   };
 };
 
 export default connect(
   mapStateToProps,
-  { checkboxSelection }
+  {
+    checkboxSelection
+  }
 )(ActivityInfo);
