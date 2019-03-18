@@ -4,40 +4,28 @@ import { connect } from 'react-redux';
 
 import { checkboxSelection } from '../actions';
 
+import { capitaliseFirstLetter } from '../helpers';
+
 class Goal extends React.Component {
   render() {
+    const goalCheckboxes = ['lose', 'maintain', 'gain'];
     return (
       <Card title="Weight Goal">
-        <CheckBox
-          center
-          title="Lose"
-          checkedIcon="dot-circle-o"
-          uncheckedIcon="circle-o"
-          checked={this.props.goal === 'lose'}
-          onPress={() => {
-            this.props.checkboxSelection('goal', 'lose');
-          }}
-        />
-        <CheckBox
-          center
-          title="Maintain"
-          checkedIcon="dot-circle-o"
-          uncheckedIcon="circle-o"
-          checked={this.props.goal === 'maintain'}
-          onPress={() => {
-            this.props.checkboxSelection('goal', 'maintain');
-          }}
-        />
-        <CheckBox
-          center
-          title="Gain"
-          checkedIcon="dot-circle-o"
-          uncheckedIcon="circle-o"
-          checked={this.props.goal === 'gain'}
-          onPress={() => {
-            this.props.checkboxSelection('goal', 'gain');
-          }}
-        />
+        {goalCheckboxes.map(title => {
+          return (
+            <CheckBox
+              center
+              title={capitaliseFirstLetter(title)}
+              checkedIcon="dot-circle-o"
+              uncheckedIcon="circle-o"
+              checked={this.props.goal === title}
+              onPress={() => {
+                this.props.checkboxSelection('goal', title);
+              }}
+              key={`goal-${title}`}
+            />
+          );
+        })}
       </Card>
     );
   }
@@ -45,7 +33,7 @@ class Goal extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    goal: state.macro.goal,
+    goal: state.macro.goal
   };
 };
 
