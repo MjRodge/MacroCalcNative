@@ -3,7 +3,7 @@ import {
   SLIDER_VALUE_CHANGED,
   GENDER_SELECTION,
   CHANGED_TEXT,
-  STORE_CALCULATED_MACROS,
+  STORE_CALCULATED_MACROS
 } from '../actions/types';
 
 const initial_state = {
@@ -24,7 +24,7 @@ const initial_state = {
   goalCalories: 0,
   totalProtein: 0,
   totalFat: 0,
-  totalCarbs: 0,
+  totalCarbs: 0
 };
 
 export default (state = initial_state, action) => {
@@ -35,17 +35,17 @@ export default (state = initial_state, action) => {
       return {
         ...state,
         carbPercentage: action.payload,
-        fatPercentage: 100 - action.payload,
+        fatPercentage: 100 - action.payload
       };
     case GENDER_SELECTION:
       return {
         ...state,
-        gender: action.payload,
+        gender: action.payload
       };
     case CHANGED_TEXT:
       return {
         ...state,
-        [action.payload.field]: action.payload.text,
+        [action.payload.field]: action.payload.text
       };
     case STORE_CALCULATED_MACROS: {
       const {
@@ -54,7 +54,7 @@ export default (state = initial_state, action) => {
         goalCalories,
         totalProtein,
         totalFat,
-        totalCarbs,
+        totalCarbs
       } = action.payload;
       return {
         ...state,
@@ -63,7 +63,7 @@ export default (state = initial_state, action) => {
         goalCalories,
         totalProtein,
         totalFat,
-        totalCarbs,
+        totalCarbs
       };
     }
     default:

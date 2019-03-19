@@ -7,7 +7,7 @@ import { checkboxSelection, sliderValueChanged } from '../actions';
 
 class Settings extends React.Component {
   static navigationOptions = {
-    title: 'Settings',
+    title: 'Settings'
   };
 
   render() {
@@ -77,8 +77,8 @@ class Settings extends React.Component {
 }
 const styles = {
   cardStyle: {
-    flex: 1,
-  },
+    flex: 1
+  }
 };
 
 const mapStateToProps = state => {
@@ -87,7 +87,7 @@ const mapStateToProps = state => {
     weightUnit,
     heightUnit,
     fatPercentage,
-    carbPercentage,
+    carbPercentage
   };
 };
 
