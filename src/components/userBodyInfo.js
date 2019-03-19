@@ -11,7 +11,7 @@ class UserBodyInfo extends React.Component {
     heightError: false,
     ageError: false,
     weightError: false,
-    errorText: 'Only whole numbers allowed',
+    errorText: 'Only whole numbers allowed'
   };
 
   updateIndex = selectedIndex => {
@@ -45,27 +45,60 @@ class UserBodyInfo extends React.Component {
             this.props.changedText('age', text);
           }}
         />
-        <Input
-          label="Height"
-          ref="height"
-          keyboardType="number-pad"
-          value={this.props.height.toString()}
-          maxLength={3}
-          rightIcon={<Text>{this.props.heightUnit}</Text>}
-          errorMessage={this.state.heightError ? this.state.errorText : null}
-          onFocus={() => {
-            this.refs.height.clear();
-            this.setState({ heightError: false });
-          }}
-          onEndEditing={e => {
-            if (!/^\d+$/.test(e.nativeEvent.text)) {
-              this.setState({ heightError: true });
-            }
-          }}
-          onChangeText={text => {
-            this.props.changedText('height', text);
-          }}
-        />
+        {this.props.heightUnit === 'cm' ? (
+          <Input
+            label="Height"
+            ref="height"
+            keyboardType="number-pad"
+            value={this.props.height.toString()}
+            maxLength={3}
+            rightIcon={<Text>{this.props.heightUnit}</Text>}
+            errorMessage={this.state.heightError ? this.state.errorText : null}
+            onFocus={() => {
+              this.refs.height.clear();
+              this.setState({ heightError: false });
+            }}
+            onEndEditing={e => {
+              if (!/^\d+$/.test(e.nativeEvent.text)) {
+                this.setState({ heightError: true });
+              }
+            }}
+            onChangeText={text => {
+              this.props.changedText('height', text);
+            }}
+          />
+        ) : (
+          <Input
+            label="Height"
+            ref="height"
+            keyboardType="number-pad"
+            value={this.props.height.toString()}
+            //maxLength={3}
+            rightIcon={<Text>{this.props.heightUnit}</Text>}
+            errorMessage={this.state.heightError ? this.state.errorText : null}
+            onFocus={() => {
+              this.refs.height.clear();
+              this.setState({ heightError: false });
+            }}
+            onEndEditing={e => {
+              if (!/^([4-8]{1})\'([0-9]|[0-1]{2})\"$/.test(e.nativeEvent.text)) {
+                this.setState({ heightError: true });
+              }
+            }}
+            onChangeText={text => {
+              if (text.length === 1) {
+                const textMask = `${text}'`;
+                this.props.changedText('height', textMask);
+              } else if (text.length === 4) {
+                const textMask = `${text}"`;
+                this.props.changedText('height', textMask);
+              } else {
+                this.props.changedText('height', text);
+              }
+              console.log(text);
+            }}
+          />
+        )}
         <Input
           label="Weight"
           ref="weight"
@@ -102,8 +135,8 @@ const styles = {
   buttonGroupLabelStyle: {
     fontSize: 18,
     paddingLeft: 10,
-    paddingTop: 10,
-  },
+    paddingTop: 10
+  }
 };
 
 const mapStateToProps = state => {
@@ -114,7 +147,7 @@ const mapStateToProps = state => {
     height,
     weight,
     heightUnit,
-    weightUnit,
+    weightUnit
   };
 };
 
