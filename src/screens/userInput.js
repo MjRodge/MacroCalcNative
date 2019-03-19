@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, ScrollView } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
 
 import { storeCalculatedMacros } from '../actions';
@@ -10,12 +10,10 @@ import ActivityInfo from '../components/activityInfo';
 import Goal from '../components/goal';
 
 class UserInput extends React.Component {
-  static navigationOptions = () => {
+  static navigationOptions = ({ navigation }) => {
     return {
       title: 'Macronutrient Calculator',
-      //removed settings screen until input mask for ft/in is built
-      //dont forget to pass navigation to navigationOptions() when uncommenting
-      /*headerRight: (
+      headerRight: (
         <Icon
           containerStyle={{ paddingRight: 20 }}
           name="settings"
@@ -23,7 +21,7 @@ class UserInput extends React.Component {
           color="#fff"
           onPress={() => navigation.navigate('Settings')}
         />
-      ),*/
+      )
     };
   };
   state = {
@@ -34,6 +32,8 @@ class UserInput extends React.Component {
     totalProtein: 0,
     totalFat: 0,
     totalCarbs: 0,
+    convertedWeight: 0,
+    convertedHeight: 0
   };
 
   calculateMacros = (
@@ -43,44 +43,91 @@ class UserInput extends React.Component {
     weight,
     activityLevel,
     goal,
-    fatPercentage
+    fatPercentage,
+    weightUnit,
+    heightUnit
   ) => {
-    if (gender === 'Male') {
-      const restingCalories = Math.floor(
-        10 * weight + 6.25 * height - 5 * age + 5
-      );
-      this.setState({ restingCalories }, () => {
-        this.calcTotalCalories(
-          restingCalories,
+    if (weightUnit === 'lb' && heightUnit === 'ft/in') {
+      const kiloConversion = weight * 0.453592;
+      const trimmedHeight = height.slice(0, -1);
+      const heightSplitArray = trimmedHeight.split("'");
+      const cmConversion = (Number(heightSplitArray[0]) * 12 + Number(heightSplitArray[1])) * 2.54;
+      console.log(kiloConversion, trimmedHeight, heightSplitArray, cmConversion);
+      this.setState({ convertedWeight: kiloConversion, convertedHeight: cmConversion }, () => {
+        this.calculateRestingCalories(
+          gender,
+          age,
+          this.state.convertedHeight,
+          this.state.convertedWeight,
           activityLevel,
           goal,
-          weight,
+          fatPercentage
+        );
+      });
+    } else if (weightUnit === 'lb') {
+      const kiloConversion = weight * 0.453592;
+      this.setState({ convertedWeight: kiloConversion, convertedHeight: height }, () => {
+        this.calculateRestingCalories(
+          gender,
+          age,
+          this.state.convertedHeight,
+          this.state.convertedWeight,
+          activityLevel,
+          goal,
+          fatPercentage
+        );
+      });
+    } else if (heightUnit === 'ft/in') {
+      const trimmedHeight = height.slice(0, -1);
+      const heightSplitArray = trimmedHeight.split("'");
+      const cmConversion = (Number(heightSplitArray[0]) * 12 + Number(heightSplitArray[1])) * 2.54;
+      this.setState({ convertedHeight: cmConversion, convertedWeight: weight }, () => {
+        this.calculateRestingCalories(
+          gender,
+          age,
+          this.state.convertedHeight,
+          this.state.convertedWeight,
+          activityLevel,
+          goal,
           fatPercentage
         );
       });
     } else {
-      const restingCalories = Math.floor(
-        10 * weight + 6.25 * height - 5 * age - 161
+      this.setState(
+        {
+          convertedWeight: weight,
+          convertedHeight: height
+        },
+        () => {
+          this.calculateRestingCalories(
+            gender,
+            age,
+            this.state.convertedHeight,
+            this.state.convertedWeight,
+            activityLevel,
+            goal,
+            fatPercentage
+          );
+        }
       );
+    }
+  };
+
+  calculateRestingCalories = (gender, age, height, weight, activityLevel, goal, fatPercentage) => {
+    if (gender === 'Male') {
+      const restingCalories = Math.floor(10 * weight + 6.25 * height - 5 * age + 5);
       this.setState({ restingCalories }, () => {
-        this.calcTotalCalories(
-          restingCalories,
-          activityLevel,
-          goal,
-          weight,
-          fatPercentage
-        );
+        this.calcTotalCalories(restingCalories, activityLevel, goal, weight, fatPercentage);
+      });
+    } else {
+      const restingCalories = Math.floor(10 * weight + 6.25 * height - 5 * age - 161);
+      this.setState({ restingCalories }, () => {
+        this.calcTotalCalories(restingCalories, activityLevel, goal, weight, fatPercentage);
       });
     }
   };
 
-  calcTotalCalories = (
-    restingCalories,
-    activityLevel,
-    goal,
-    weight,
-    fatPercentage
-  ) => {
+  calcTotalCalories = (restingCalories, activityLevel, goal, weight, fatPercentage) => {
     if (activityLevel === 'sedentary') {
       const totalCalories = Math.floor(restingCalories * 1.2);
       this.setState({ totalCalories }, () => {
@@ -126,9 +173,7 @@ class UserInput extends React.Component {
   calcMacroSplit = (goalCalories, weight, fatPercentage) => {
     const totalProtein = Math.floor(weight * 2.2 * 0.825);
     const totalFat = Math.floor((goalCalories * (fatPercentage / 100)) / 9);
-    const totalCarbs = Math.floor(
-      (goalCalories - totalProtein * 4 - totalFat * 9) / 4
-    );
+    const totalCarbs = Math.floor((goalCalories - totalProtein * 4 - totalFat * 9) / 4);
     this.setState({ totalCarbs, totalProtein, totalFat }, () => {
       this.props.storeCalculatedMacros(
         this.state.restingCalories,
@@ -154,7 +199,7 @@ class UserInput extends React.Component {
             flex: 1,
             paddingBottom: 25,
             paddingLeft: 15,
-            paddingRight: 15,
+            paddingRight: 15
           }}
         >
           <Button
@@ -168,9 +213,12 @@ class UserInput extends React.Component {
                 this.props.weight,
                 this.props.activityLevel,
                 this.props.goal,
-                this.props.fatPercentage
+                this.props.fatPercentage,
+                this.props.weightUnit,
+                this.props.heightUnit
               );
-              this.props.navigation.navigate('Results');
+              //console.log(this.props, this.state);
+              //this.props.navigation.navigate('Results');
             }}
           />
         </View>
@@ -188,6 +236,8 @@ const mapStateToProps = state => {
     activityLevel,
     goal,
     fatPercentage,
+    weightUnit,
+    heightUnit
   } = state.macro;
   return {
     gender,
@@ -197,6 +247,8 @@ const mapStateToProps = state => {
     activityLevel,
     goal,
     fatPercentage,
+    weightUnit,
+    heightUnit
   };
 };
 
