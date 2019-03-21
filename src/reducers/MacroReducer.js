@@ -30,7 +30,7 @@ const initial_state = {
 export default (state = initial_state, action) => {
   switch (action.type) {
     case CHECKBOX_SELECTION:
-      return { ...state, [action.payload.group]: action.payload.title };
+      return { ...state, [action.payload.group]: action.payload.title, [action.payload.target]: 0 };
     case SLIDER_VALUE_CHANGED:
       return {
         ...state,

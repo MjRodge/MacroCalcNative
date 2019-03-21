@@ -23,7 +23,7 @@ class Settings extends React.Component {
               uncheckedIcon="circle-o"
               checked={this.props.weightUnit === 'kg'}
               onPress={() => {
-                this.props.checkboxSelection('weightUnit', 'kg');
+                this.props.checkboxSelection('weightUnit', 'kg', 'weight');
               }}
             />
             <CheckBox
@@ -33,7 +33,7 @@ class Settings extends React.Component {
               uncheckedIcon="circle-o"
               checked={this.props.weightUnit === 'lb'}
               onPress={() => {
-                this.props.checkboxSelection('weightUnit', 'lb');
+                this.props.checkboxSelection('weightUnit', 'lb', 'weight');
               }}
             />
           </Card>
@@ -45,7 +45,7 @@ class Settings extends React.Component {
               uncheckedIcon="circle-o"
               checked={this.props.heightUnit === 'cm'}
               onPress={() => {
-                this.props.checkboxSelection('heightUnit', 'cm');
+                this.props.checkboxSelection('heightUnit', 'cm', 'height');
               }}
             />
             <CheckBox
@@ -55,7 +55,7 @@ class Settings extends React.Component {
               uncheckedIcon="circle-o"
               checked={this.props.heightUnit === 'ft/in'}
               onPress={() => {
-                this.props.checkboxSelection('heightUnit', 'ft/in');
+                this.props.checkboxSelection('heightUnit', 'ft/in', 'height');
               }}
             />
           </Card>
