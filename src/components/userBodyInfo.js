@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import React from 'react';
 import { Text } from 'react-native';
 import { Card, Input, ButtonGroup } from 'react-native-elements';
@@ -33,7 +34,7 @@ class UserBodyInfo extends React.Component {
           maxLength={2}
           errorMessage={this.state.ageError ? this.state.errorText : null}
           onFocus={() => {
-            this.refs.age.clear();
+            this.refs.age.input.clear();
             this.setState({ ageError: false });
           }}
           onEndEditing={e => {
@@ -55,7 +56,7 @@ class UserBodyInfo extends React.Component {
             rightIcon={<Text>{this.props.heightUnit}</Text>}
             errorMessage={this.state.heightError ? this.state.errorText : null}
             onFocus={() => {
-              this.refs.height.clear();
+              this.refs.height.input.clear();
               this.setState({ heightError: false });
             }}
             onEndEditing={e => {
@@ -73,11 +74,11 @@ class UserBodyInfo extends React.Component {
             ref="height"
             keyboardType="number-pad"
             value={this.props.height.toString()}
-            //maxLength={3}
+            maxLength={5}
             rightIcon={<Text>{this.props.heightUnit}</Text>}
             errorMessage={this.state.heightError ? this.state.errorText : null}
             onFocus={() => {
-              this.refs.height.clear();
+              this.refs.height.input.clear();
               this.setState({ heightError: false });
             }}
             onEndEditing={e => {
@@ -95,7 +96,6 @@ class UserBodyInfo extends React.Component {
               } else {
                 this.props.changedText('height', text);
               }
-              console.log(text);
             }}
           />
         )}
@@ -108,7 +108,7 @@ class UserBodyInfo extends React.Component {
           rightIcon={<Text>{this.props.weightUnit}</Text>}
           errorMessage={this.state.weightError ? this.state.errorText : null}
           onFocus={() => {
-            this.refs.weight.clear();
+            this.refs.weight.input.clear();
             this.setState({ weightError: false });
           }}
           onEndEditing={e => {
