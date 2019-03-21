@@ -217,8 +217,7 @@ class UserInput extends React.Component {
                 this.props.weightUnit,
                 this.props.heightUnit
               );
-              //console.log(this.props, this.state);
-              //this.props.navigation.navigate('Results');
+              this.props.navigation.navigate('Results');
             }}
           />
         </View>
