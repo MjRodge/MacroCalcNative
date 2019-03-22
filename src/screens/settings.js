@@ -12,52 +12,50 @@ class Settings extends React.Component {
 
   render() {
     const { cardStyle } = styles;
+    const weightSettings = [
+      { title: 'Kilograms (kg)', unit: 'kg' },
+      { title: 'Pounds (lb)', unit: 'lb' }
+    ];
+    const heightSettings = [
+      { title: 'Centimetres (cm)', unit: 'cm' },
+      { title: 'Feet/Inches (ft/in)', unit: 'ft/in' }
+    ];
     return (
       <ScrollView style={{ flex: 1 }}>
         <View style={{ flex: 1, paddingBottom: 25 }}>
           <Card title="Weight Unit" style={cardStyle}>
-            <CheckBox
-              center
-              title="Kilograms (kg)"
-              checkedIcon="dot-circle-o"
-              uncheckedIcon="circle-o"
-              checked={this.props.weightUnit === 'kg'}
-              onPress={() => {
-                this.props.checkboxSelection('weightUnit', 'kg', 'weight');
-              }}
-            />
-            <CheckBox
-              center
-              title="Pounds (lb)"
-              checkedIcon="dot-circle-o"
-              uncheckedIcon="circle-o"
-              checked={this.props.weightUnit === 'lb'}
-              onPress={() => {
-                this.props.checkboxSelection('weightUnit', 'lb', 'weight');
-              }}
-            />
+            {weightSettings.map(item => {
+              return (
+                <CheckBox
+                  center
+                  title={item.title}
+                  checkedIcon="dot-circle-o"
+                  uncheckedIcon="circle-o"
+                  key={`settings-checkbox-${item.unit}`}
+                  checked={this.props.weightUnit === item.unit}
+                  onPress={() => {
+                    this.props.checkboxSelection('weightUnit', item.unit, 'weight');
+                  }}
+                />
+              );
+            })}
           </Card>
           <Card title="Height Unit" style={cardStyle}>
-            <CheckBox
-              center
-              title="Centimetres (cm)"
-              checkedIcon="dot-circle-o"
-              uncheckedIcon="circle-o"
-              checked={this.props.heightUnit === 'cm'}
-              onPress={() => {
-                this.props.checkboxSelection('heightUnit', 'cm', 'height');
-              }}
-            />
-            <CheckBox
-              center
-              title="Feet/Inches (ft/in)"
-              checkedIcon="dot-circle-o"
-              uncheckedIcon="circle-o"
-              checked={this.props.heightUnit === 'ft/in'}
-              onPress={() => {
-                this.props.checkboxSelection('heightUnit', 'ft/in', 'height');
-              }}
-            />
+            {heightSettings.map(item => {
+              return (
+                <CheckBox
+                  center
+                  title={item.title}
+                  checkedIcon="dot-circle-o"
+                  uncheckedIcon="circle-o"
+                  key={`settings-checkbox-${item.unit}`}
+                  checked={this.props.heightUnit === item.unit}
+                  onPress={() => {
+                    this.props.checkboxSelection('heightUnit', item.unit, 'height');
+                  }}
+                />
+              );
+            })}
           </Card>
           <Card title="Fat/Carb Split" style={cardStyle}>
             <Slider
