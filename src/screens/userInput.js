@@ -52,7 +52,6 @@ class UserInput extends React.Component {
       const trimmedHeight = height.slice(0, -1);
       const heightSplitArray = trimmedHeight.split("'");
       const cmConversion = (Number(heightSplitArray[0]) * 12 + Number(heightSplitArray[1])) * 2.54;
-      console.log(kiloConversion, trimmedHeight, heightSplitArray, cmConversion);
       this.setState({ convertedWeight: kiloConversion, convertedHeight: cmConversion }, () => {
         this.calculateRestingCalories(
           gender,
