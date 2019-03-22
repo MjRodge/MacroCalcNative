@@ -3,7 +3,8 @@ import {
   SLIDER_VALUE_CHANGED,
   GENDER_SELECTION,
   CHANGED_TEXT,
-  STORE_CALCULATED_MACROS
+  STORE_CALCULATED_MACROS,
+  USER_INFO_VALIDATION
 } from './types';
 
 export const checkboxSelection = (group, title, target) => {
@@ -31,6 +32,13 @@ export const changedText = (field, text) => {
   return {
     type: CHANGED_TEXT,
     payload: { field, text }
+  };
+};
+
+export const userInfoValidation = isValid => {
+  return {
+    type: USER_INFO_VALIDATION,
+    payload: isValid
   };
 };
 

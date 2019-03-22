@@ -4,7 +4,7 @@ import { Text } from 'react-native';
 import { Card, Input, ButtonGroup } from 'react-native-elements';
 import { connect } from 'react-redux';
 
-import { genderSelection, changedText } from '../actions';
+import { genderSelection, changedText, userInfoValidation } from '../actions';
 
 class UserBodyInfo extends React.Component {
   state = {
@@ -36,10 +36,12 @@ class UserBodyInfo extends React.Component {
           onFocus={() => {
             this.refs.age.input.clear();
             this.setState({ ageError: false });
+            this.props.userInfoValidation(true);
           }}
           onEndEditing={e => {
             if (!/^\d+$/.test(e.nativeEvent.text)) {
               this.setState({ ageError: true });
+              this.props.userInfoValidation(false);
             }
           }}
           onChangeText={text => {
@@ -58,10 +60,12 @@ class UserBodyInfo extends React.Component {
             onFocus={() => {
               this.refs.height.input.clear();
               this.setState({ heightError: false });
+              this.props.userInfoValidation(true);
             }}
             onEndEditing={e => {
               if (!/^\d+$/.test(e.nativeEvent.text)) {
                 this.setState({ heightError: true });
+                this.props.userInfoValidation(false);
               }
             }}
             onChangeText={text => {
@@ -80,10 +84,12 @@ class UserBodyInfo extends React.Component {
             onFocus={() => {
               this.refs.height.input.clear();
               this.setState({ heightError: false });
+              this.props.userInfoValidation(true);
             }}
             onEndEditing={e => {
               if (!/^([4-8]{1})\'([0-9]|[0-1]{2})\"$/.test(e.nativeEvent.text)) {
                 this.setState({ heightError: true });
+                this.props.userInfoValidation(false);
               }
             }}
             onChangeText={text => {
@@ -110,10 +116,12 @@ class UserBodyInfo extends React.Component {
           onFocus={() => {
             this.refs.weight.input.clear();
             this.setState({ weightError: false });
+            this.props.userInfoValidation(true);
           }}
           onEndEditing={e => {
             if (!/^\d+$/.test(e.nativeEvent.text)) {
               this.setState({ weightError: true });
+              this.props.userInfoValidation(false);
             }
           }}
           onChangeText={text => {
@@ -140,18 +148,19 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  const { gender, age, height, weight, heightUnit, weightUnit } = state.macro;
+  const { gender, age, height, weight, heightUnit, weightUnit, userInfoIsValid } = state.macro;
   return {
     gender,
     age,
     height,
     weight,
     heightUnit,
-    weightUnit
+    weightUnit,
+    userInfoIsValid
   };
 };
 
 export default connect(
   mapStateToProps,
-  { genderSelection, changedText }
+  { genderSelection, changedText, userInfoValidation }
 )(UserBodyInfo);

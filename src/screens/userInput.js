@@ -2,6 +2,7 @@ import React from 'react';
 import { View, ScrollView } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
+import SnackBar from 'react-native-snackbar-component';
 
 import { storeCalculatedMacros } from '../actions';
 
@@ -33,7 +34,8 @@ class UserInput extends React.Component {
     totalFat: 0,
     totalCarbs: 0,
     convertedWeight: 0,
-    convertedHeight: 0
+    convertedHeight: 0,
+    snackbarVisible: false
   };
 
   calculateMacros = (
@@ -197,6 +199,7 @@ class UserInput extends React.Component {
           style={{
             flex: 1,
             paddingBottom: 25,
+            paddingTop: 15,
             paddingLeft: 15,
             paddingRight: 15
           }}
@@ -205,19 +208,34 @@ class UserInput extends React.Component {
             title="Calculate Macros"
             backgroundColor="ff5722"
             onPress={() => {
-              this.calculateMacros(
-                this.props.gender,
-                this.props.age,
-                this.props.height,
-                this.props.weight,
-                this.props.activityLevel,
-                this.props.goal,
-                this.props.fatPercentage,
-                this.props.weightUnit,
-                this.props.heightUnit
-              );
-              this.props.navigation.navigate('Results');
+              if (!this.props.userInfoIsValid) {
+                this.setState({ snackbarVisible: true });
+              } else {
+                this.setState({ snackbarVisible: false });
+                this.calculateMacros(
+                  this.props.gender,
+                  this.props.age,
+                  this.props.height,
+                  this.props.weight,
+                  this.props.activityLevel,
+                  this.props.goal,
+                  this.props.fatPercentage,
+                  this.props.weightUnit,
+                  this.props.heightUnit
+                );
+                this.props.navigation.navigate('Results');
+              }
             }}
+          />
+        </View>
+        <View style={{ flex: 1, height: 40 }}>
+          <SnackBar
+            visible={this.state.snackbarVisible}
+            textMessage="Please check information entered is correct"
+            actionHandler={() => {
+              this.setState({ snackbarVisible: false });
+            }}
+            actionText="Dismiss"
           />
         </View>
       </ScrollView>
@@ -235,7 +253,8 @@ const mapStateToProps = state => {
     goal,
     fatPercentage,
     weightUnit,
-    heightUnit
+    heightUnit,
+    userInfoIsValid
   } = state.macro;
   return {
     gender,
@@ -246,7 +265,8 @@ const mapStateToProps = state => {
     goal,
     fatPercentage,
     weightUnit,
-    heightUnit
+    heightUnit,
+    userInfoIsValid
   };
 };
 

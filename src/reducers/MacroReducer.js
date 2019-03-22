@@ -3,7 +3,8 @@ import {
   SLIDER_VALUE_CHANGED,
   GENDER_SELECTION,
   CHANGED_TEXT,
-  STORE_CALCULATED_MACROS
+  STORE_CALCULATED_MACROS,
+  USER_INFO_VALIDATION
 } from '../actions/types';
 
 const initial_state = {
@@ -18,6 +19,7 @@ const initial_state = {
   age: 27,
   height: 180,
   weight: 72,
+  userInfoIsValid: false,
   //values calculated for output
   restingCalories: 0,
   totalCalories: 0,
@@ -30,7 +32,11 @@ const initial_state = {
 export default (state = initial_state, action) => {
   switch (action.type) {
     case CHECKBOX_SELECTION:
-      return { ...state, [action.payload.group]: action.payload.title, [action.payload.target]: 0 };
+      return {
+        ...state,
+        [action.payload.group]: action.payload.title,
+        [action.payload.target]: ''
+      };
     case SLIDER_VALUE_CHANGED:
       return {
         ...state,
@@ -46,6 +52,12 @@ export default (state = initial_state, action) => {
       return {
         ...state,
         [action.payload.field]: action.payload.text
+      };
+    case USER_INFO_VALIDATION:
+      console.log(action.payload);
+      return {
+        ...state,
+        userInfoIsValid: action.payload
       };
     case STORE_CALCULATED_MACROS: {
       const {
