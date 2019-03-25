@@ -54,7 +54,6 @@ export default (state = initial_state, action) => {
         [action.payload.field]: action.payload.text
       };
     case USER_INFO_VALIDATION:
-      console.log(action.payload);
       return {
         ...state,
         userInfoIsValid: action.payload

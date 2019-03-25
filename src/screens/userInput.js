@@ -174,7 +174,6 @@ class UserInput extends React.Component {
     const remainingCalories = Math.floor(goalCalories - totalProtein * 4);
     const totalFat = Math.floor((remainingCalories * (fatPercentage / 100)) / 9);
     const totalCarbs = Math.floor((remainingCalories - totalFat * 9) / 4);
-    console.log(totalCarbs, totalFat, totalProtein, goalCalories);
     this.setState({ totalCarbs, totalProtein, totalFat }, () => {
       this.props.storeCalculatedMacros(
         this.state.restingCalories,
