@@ -5,7 +5,7 @@ import Results from '../screens/results';
 import Settings from '../screens/settings';
 
 
-const MainStackNavigator = createStackNavigator(
+const BodyInfoStackNavigator = createStackNavigator(
     {
       Home: UserInput,
       Results,
@@ -25,4 +25,4 @@ const MainStackNavigator = createStackNavigator(
     }
   );
 
-export default MainStackNavigator;
+export default BodyInfoStackNavigator;
