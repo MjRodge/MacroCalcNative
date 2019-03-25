@@ -12,7 +12,7 @@ class UserBodyInfo extends React.Component {
     heightError: false,
     ageError: false,
     weightError: false,
-    errorText: 'Only whole numbers allowed'
+    errorText: 'Please enter your'
   };
 
   updateIndex = selectedIndex => {
@@ -32,7 +32,7 @@ class UserBodyInfo extends React.Component {
           keyboardType="number-pad"
           value={this.props.age.toString()}
           maxLength={2}
-          errorMessage={this.state.ageError ? this.state.errorText : null}
+          errorMessage={this.state.ageError ? `${this.state.errorText} age` : null}
           onFocus={() => {
             this.refs.age.input.clear();
             this.setState({ ageError: false });
@@ -56,7 +56,7 @@ class UserBodyInfo extends React.Component {
             value={this.props.height.toString()}
             maxLength={3}
             rightIcon={<Text>{this.props.heightUnit}</Text>}
-            errorMessage={this.state.heightError ? this.state.errorText : null}
+            errorMessage={this.state.heightError ? `${this.state.errorText} height` : null}
             onFocus={() => {
               this.refs.height.input.clear();
               this.setState({ heightError: false });
@@ -80,14 +80,14 @@ class UserBodyInfo extends React.Component {
             value={this.props.height.toString()}
             maxLength={5}
             rightIcon={<Text>{this.props.heightUnit}</Text>}
-            errorMessage={this.state.heightError ? this.state.errorText : null}
+            errorMessage={this.state.heightError ? `${this.state.errorText} height` : null}
             onFocus={() => {
               this.refs.height.input.clear();
               this.setState({ heightError: false });
               this.props.userInfoValidation(true);
             }}
             onEndEditing={e => {
-              if (!/^([4-8]{1})\'([0-9]|[0-1]{2})\"$/.test(e.nativeEvent.text)) {
+              if (!/^([4-8]{1})\'([0-9]|[0-1]{2})$/.test(e.nativeEvent.text)) {
                 this.setState({ heightError: true });
                 this.props.userInfoValidation(false);
               }
@@ -95,9 +95,6 @@ class UserBodyInfo extends React.Component {
             onChangeText={text => {
               if (text.length === 1) {
                 const textMask = `${text}'`;
-                this.props.changedText('height', textMask);
-              } else if (text.length === 4) {
-                const textMask = `${text}"`;
                 this.props.changedText('height', textMask);
               } else {
                 this.props.changedText('height', text);
@@ -112,7 +109,7 @@ class UserBodyInfo extends React.Component {
           value={this.props.weight.toString()}
           maxLength={3}
           rightIcon={<Text>{this.props.weightUnit}</Text>}
-          errorMessage={this.state.weightError ? this.state.errorText : null}
+          errorMessage={this.state.weightError ? `${this.state.errorText} weight` : null}
           onFocus={() => {
             this.refs.weight.input.clear();
             this.setState({ weightError: false });

@@ -51,8 +51,7 @@ class UserInput extends React.Component {
   ) => {
     if (weightUnit === 'lb' && heightUnit === 'ft/in') {
       const kiloConversion = weight * 0.453592;
-      const trimmedHeight = height.slice(0, -1);
-      const heightSplitArray = trimmedHeight.split("'");
+      const heightSplitArray = height.split("'");
       const cmConversion = (Number(heightSplitArray[0]) * 12 + Number(heightSplitArray[1])) * 2.54;
       this.setState({ convertedWeight: kiloConversion, convertedHeight: cmConversion }, () => {
         this.calculateRestingCalories(
@@ -79,8 +78,7 @@ class UserInput extends React.Component {
         );
       });
     } else if (heightUnit === 'ft/in') {
-      const trimmedHeight = height.slice(0, -1);
-      const heightSplitArray = trimmedHeight.split("'");
+      const heightSplitArray = height.split("'");
       const cmConversion = (Number(heightSplitArray[0]) * 12 + Number(heightSplitArray[1])) * 2.54;
       this.setState({ convertedHeight: cmConversion, convertedWeight: weight }, () => {
         this.calculateRestingCalories(
@@ -173,8 +171,10 @@ class UserInput extends React.Component {
 
   calcMacroSplit = (goalCalories, weight, fatPercentage) => {
     const totalProtein = Math.floor(weight * 2.2 * 0.825);
-    const totalFat = Math.floor((goalCalories * (fatPercentage / 100)) / 9);
-    const totalCarbs = Math.floor((goalCalories - totalProtein * 4 - totalFat * 9) / 4);
+    const remainingCalories = Math.floor(goalCalories - totalProtein * 4);
+    const totalFat = Math.floor((remainingCalories * (fatPercentage / 100)) / 9);
+    const totalCarbs = Math.floor((remainingCalories - totalFat * 9) / 4);
+    console.log(totalCarbs, totalFat, totalProtein, goalCalories);
     this.setState({ totalCarbs, totalProtein, totalFat }, () => {
       this.props.storeCalculatedMacros(
         this.state.restingCalories,
