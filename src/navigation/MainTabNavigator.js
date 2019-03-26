@@ -2,6 +2,7 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
+import headerNavOptions from '../constants/headerNavOptions';
 import TabBarIcon from '../components/common/TabBarIcon';
 import BodyInfoStackNavigator from './BodyInfoStackNavigator';
 import FoodSearchScreen from '../screens/foodSearchScreen';
@@ -25,17 +26,7 @@ const FoodSearchStackNavigator = createStackNavigator(
   {
     FoodSearch: FoodSearchScreen
   },
-  {
-    defaultNavigationOptions: {
-      headerStyle: {
-        backgroundColor: '#00BCD4'
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        fontWeight: 'bold'
-      }
-    }
-  }
+  headerNavOptions
 );
 
 FoodSearchStackNavigator.navigationOptions = {
@@ -49,17 +40,7 @@ const FoodDiaryStackNavigator = createStackNavigator(
   {
     FoodDiary: FoodDiaryScreen
   },
-  {
-    defaultNavigationOptions: {
-      headerStyle: {
-        backgroundColor: '#00BCD4'
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        fontWeight: 'bold'
-      }
-    }
-  }
+  headerNavOptions
 );
 
 FoodDiaryStackNavigator.navigationOptions = {
