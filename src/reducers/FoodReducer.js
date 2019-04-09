@@ -1,7 +1,7 @@
 import { FOOD_SEARCH_AUTOCOMPLETE } from '../actions/types';
 
 const initial_state = {
-  searchQuery: ''
+  searchQueryMatches: []
 };
 
 export default (state = initial_state, action) => {
@@ -9,7 +9,7 @@ export default (state = initial_state, action) => {
     case FOOD_SEARCH_AUTOCOMPLETE:
       return {
         ...state,
-        searchQuery: action.payload
+        searchQueryMatches: [action.payload]
       };
     default:
       return state;
