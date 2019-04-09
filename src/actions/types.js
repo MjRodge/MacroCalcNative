@@ -8,3 +8,5 @@ export const USER_INFO_VALIDATION = 'user_info_validation';
 
 //Food action types
 export const FOOD_SEARCH_AUTOCOMPLETE = 'food_search_autocomplete';
+export const FOOD_SEARCH_AUTOCOMPLETE_QUERYING = 'food_search_autocomplete_querying';
+export const FOOD_SEARCH_AUTOCOMPLETE_ERROR = 'food_search_autocomplete_error';
