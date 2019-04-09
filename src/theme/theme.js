@@ -6,7 +6,7 @@ export const theme = {
     raised: true
   },
   Slider: {
-    minimumTrackTintColor: '#00BCD4',
+    minimumTrackTintColor: '#293D5D',
     thumbTintColor: '#ff9800'
   }
 };

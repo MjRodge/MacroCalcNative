@@ -14,7 +14,7 @@ const BodyInfoStackNavigator = createStackNavigator(
     initialRouteName: 'Home',
     defaultNavigationOptions: {
       headerStyle: {
-        backgroundColor: '#00BCD4'
+        backgroundColor: '#293D5D'
       },
       headerTintColor: '#fff',
       headerTitleStyle: {

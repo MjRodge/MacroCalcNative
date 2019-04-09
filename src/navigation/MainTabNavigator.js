@@ -19,7 +19,16 @@ BodyInfoStackNavigator.navigationOptions = {
           : 'md-information-circle'
       }
     />
-  )
+  ),
+  tabBarOptions: {
+    activeTintColor: '#ff9800',
+    labelStyle: {
+      fontSize: 12
+    },
+    style: {
+      backgroundColor: '#293D5D'
+    }
+  }
 };
 
 const FoodSearchStackNavigator = createStackNavigator(
@@ -33,7 +42,16 @@ FoodSearchStackNavigator.navigationOptions = {
   tabBarLabel: 'Food Search',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'} />
-  )
+  ),
+  tabBarOptions: {
+    activeTintColor: '#ff9800',
+    labelStyle: {
+      fontSize: 12
+    },
+    style: {
+      backgroundColor: '#293D5D'
+    }
+  }
 };
 
 const FoodDiaryStackNavigator = createStackNavigator(
@@ -47,7 +65,16 @@ FoodDiaryStackNavigator.navigationOptions = {
   tabBarLabel: 'Food Diary',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-book' : 'md-book'} />
-  )
+  ),
+  tabBarOptions: {
+    activeTintColor: '#ff9800',
+    labelStyle: {
+      fontSize: 12
+    },
+    style: {
+      backgroundColor: '#293D5D'
+    }
+  }
 };
 
 export default createBottomTabNavigator({
